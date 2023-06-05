@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 # */AIPND-revision/intropyproject-classify-pet-images/calculates_results_stats.py
 #
-# PROGRAMMER:
-# DATE CREATED:
-# REVISED DATE:
+# PROGRAMMER:   Suhair Shareef
+# DATE CREATED: June 3, 2023.
+# REVISED DATE: June 3, 2023.
 # PURPOSE: Create a function calculates_results_stats that calculates the
 #          statistics of the results of the programrun using the classifier's model
 #          architecture to classify the images. This function will use the
@@ -68,6 +68,60 @@ def calculates_results_stats(results_dic):
                      and the previous topic Calculating Results in the class for details
                      on how to calculate the counts and statistics.
     """
-    # Replace None with the results_stats_dic dictionary that you created with
-    # this function
-    return None
+    results_stats_dic = {}
+    n_images = len(results_dic)
+    n_dogs_img = 0
+    n_class_cdog = 0
+    n_class_cnotd = 0
+    n_match_breed = 0
+
+    for key in results_dic:
+        # match (if dog then breed match)
+        if results_dic[key][2] == 1:
+            # isa dog (pet label) & breed match
+            if results_dic[key][3] == 1:
+                n_dogs_img += 1
+
+                # isa dog (classifier label) & breed match
+                if results_dic[key][4] == 1:
+                    n_class_cdog += 1
+                    n_match_breed += 1
+
+            # NOT dog (pet_label)
+            else:
+                # NOT dog (classifier label)
+                if results_dic[key][4] == 0:
+                    n_class_cnotd += 1
+
+        # NOT - match (not a breed match if a dog)
+        else:
+            # NOT - match
+            # isa dog (pet label)
+            if results_dic[key][3] == 1:
+                n_dogs_img += 1
+
+                # isa dog (classifier label)
+                if results_dic[key][4] == 1:
+                    n_class_cdog += 1
+
+            # NOT dog (pet_label)
+            else:
+                # NOT dog (classifier label)
+                if results_dic[key][4] == 0:
+                    n_class_cnotd += 1
+
+    # calculates statistics based upon counters from above
+    n_notdogs_img = n_images - n_dogs_img
+    pct_correct_dogs = (n_class_cdog / n_dogs_img) * 100 if n_dogs_img else 0
+    pct_correct_notdogs = (n_class_cnotd / n_notdogs_img) * 100 if n_notdogs_img else 0
+    pct_correct_breed = (n_match_breed / n_dogs_img) * 100 if n_dogs_img else 0
+
+    # Add data to the dictionary
+    results_stats_dic["n_images"] = n_images
+    results_stats_dic["n_dogs_img"] = n_dogs_img
+    results_stats_dic["n_notdogs_img"] = n_notdogs_img
+    results_stats_dic["pct_correct_dogs"] = pct_correct_dogs
+    results_stats_dic["pct_correct_notdogs"] = pct_correct_notdogs
+    results_stats_dic["pct_correct_breed"] = pct_correct_breed
+
+    return results_stats_dic
