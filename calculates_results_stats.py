@@ -74,10 +74,12 @@ def calculates_results_stats(results_dic):
     n_class_cdog = 0
     n_class_cnotd = 0
     n_match_breed = 0
+    n_label_match = 0
 
     for key in results_dic:
         # match (if dog then breed match)
         if results_dic[key][2] == 1:
+            n_label_match += 1
             # isa dog (pet label) & breed match
             if results_dic[key][3] == 1:
                 n_dogs_img += 1
@@ -115,6 +117,7 @@ def calculates_results_stats(results_dic):
     pct_correct_dogs = (n_class_cdog / n_dogs_img) * 100 if n_dogs_img else 0
     pct_correct_notdogs = (n_class_cnotd / n_notdogs_img) * 100 if n_notdogs_img else 0
     pct_correct_breed = (n_match_breed / n_dogs_img) * 100 if n_dogs_img else 0
+    pct_correct_match = (n_label_match / n_images) * 100 if n_images else 0
 
     # Add data to the dictionary
     results_stats_dic["n_images"] = n_images
@@ -123,5 +126,6 @@ def calculates_results_stats(results_dic):
     results_stats_dic["pct_correct_dogs"] = pct_correct_dogs
     results_stats_dic["pct_correct_notdogs"] = pct_correct_notdogs
     results_stats_dic["pct_correct_breed"] = pct_correct_breed
+    results_stats_dic["pct_correct_match"] = pct_correct_match
 
     return results_stats_dic
