@@ -69,7 +69,7 @@ def classify_images(images_dir, results_dic, model):
     for file in results_dic:
         results_dic[file] = get_dog_breed_data_from_image(
             file_path=f"{images_dir}/{file}",
-            pet_label=results_dic[file],
+            pet_label=results_dic[file][0],
             classifier_model=model,
         )
 
@@ -79,8 +79,8 @@ def get_dog_breed_data_from_image(
 ) -> list:
     classifier_labels = classifier(file_path, classifier_model)
     classifier_labels = classifier_labels.lower().split(",")
-    classifier_labels = [label.strip() for label in classifier_labels]
+    classifier_labels_result = [label.strip() for label in classifier_labels]
 
-    is_match = 1 if pet_label in classifier_labels else 0
+    is_match = 1 if pet_label in classifier_labels_result else 0
 
-    return [pet_label, ",".join(classifier_labels), is_match]
+    return [pet_label, ",".join(classifier_labels_result), is_match]

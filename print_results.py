@@ -67,4 +67,55 @@ def print_results(
     Returns:
            None - simply printing results.
     """
-    None
+    print(
+        f"""
+            -----------   Dog Breed Identifier using {model} ML model   -----------\n\n\n\n
+                                           Results                                  \n\n
+            Counter:\n\n
+            Number of images: {results_stats_dic["n_images"]}\n
+            Number of Dog Images: {results_stats_dic["n_dogs_img"]}\n
+            Number of "Not-a" Dog Images: {results_stats_dic["n_notdogs_img"]}\n\n
+            
+            Percentages:\n\n
+            % Correct Dogs: {results_stats_dic["pct_correct_dogs"]}\n
+            % Correct Breed: {results_stats_dic["pct_correct_breed"]}\n
+            % Correct "Not-a" Dog: {results_stats_dic["pct_correct_notdogs"]}\n
+            % Match: {results_stats_dic["pct_match"]}\n\n
+            
+        """
+    )
+    misclassified_images_count = (
+        results_stats_dic["n_correct_dogs"] + results_stats_dic["n_correct_notdogs"]
+    )
+
+    if misclassified_images_count != results_stats_dic["n_images"]:
+        print(
+            f"There are {results_stats_dic['n_images'] - misclassified_images_count} "
+            "image(s) that has been misclassified!\n"
+        )
+
+    if (
+        print_incorrect_dogs
+        and misclassified_images_count != results_stats_dic["n_images"]
+    ):
+        print("The following pets has been misclassified:\n")
+        for file in results_dic:
+            if sum(results_dic[file][3:]) == 1:
+                print(
+                    f"Image name: '{file}', "
+                    f"Pet label: '{results_dic[file][0]}', "
+                    f"Classification label: '{results_dic[file][1]}'"
+                )
+
+    if (
+        print_incorrect_breed
+        and results_stats_dic["n_correct_dogs"] != results_stats_dic["n_correct_breed"]
+    ):
+        print("The following dogs has been misclassified in breed:\n")
+        for file in results_dic:
+            if sum(results_dic[file][3:]) == 2 and results_dic[file][2] == 0:
+                print(
+                    f"Image name: '{file}', "
+                    f"Pet label: '{results_dic[file][0]}', "
+                    f"Classification label: '{results_dic[file][1]}'"
+                )

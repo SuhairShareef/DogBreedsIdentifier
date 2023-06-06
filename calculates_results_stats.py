@@ -4,9 +4,9 @@
 #
 # PROGRAMMER:   Suhair Shareef
 # DATE CREATED: June 3, 2023.
-# REVISED DATE: June 3, 2023.
+# REVISED DATE: June 5, 2023.
 # PURPOSE: Create a function calculates_results_stats that calculates the
-#          statistics of the results of the programrun using the classifier's model
+#          statistics of the results of the program run using the classifier's model
 #          architecture to classify the images. This function will use the
 #          results in the results dictionary to calculate these statistics.
 #          This function will then put the results statistics in a dictionary
@@ -71,29 +71,29 @@ def calculates_results_stats(results_dic):
     results_stats_dic = {}
     n_images = len(results_dic)
     n_dogs_img = 0
-    n_class_cdog = 0
-    n_class_cnotd = 0
+    n_correct_dogs = 0
+    n_correct_notdogs = 0
     n_match_breed = 0
-    n_label_match = 0
+    n_match = 0
 
     for key in results_dic:
         # match (if dog then breed match)
         if results_dic[key][2] == 1:
-            n_label_match += 1
+            n_match += 1
             # isa dog (pet label) & breed match
             if results_dic[key][3] == 1:
                 n_dogs_img += 1
 
                 # isa dog (classifier label) & breed match
                 if results_dic[key][4] == 1:
-                    n_class_cdog += 1
+                    n_correct_dogs += 1
                     n_match_breed += 1
 
             # NOT dog (pet_label)
             else:
                 # NOT dog (classifier label)
                 if results_dic[key][4] == 0:
-                    n_class_cnotd += 1
+                    n_correct_notdogs += 1
 
         # NOT - match (not a breed match if a dog)
         else:
@@ -104,28 +104,33 @@ def calculates_results_stats(results_dic):
 
                 # isa dog (classifier label)
                 if results_dic[key][4] == 1:
-                    n_class_cdog += 1
+                    n_correct_dogs += 1
 
             # NOT dog (pet_label)
             else:
                 # NOT dog (classifier label)
                 if results_dic[key][4] == 0:
-                    n_class_cnotd += 1
+                    n_correct_notdogs += 1
 
     # calculates statistics based upon counters from above
     n_notdogs_img = n_images - n_dogs_img
-    pct_correct_dogs = (n_class_cdog / n_dogs_img) * 100 if n_dogs_img else 0
-    pct_correct_notdogs = (n_class_cnotd / n_notdogs_img) * 100 if n_notdogs_img else 0
+    pct_correct_dogs = (n_correct_dogs / n_dogs_img) * 100 if n_dogs_img else 0
+    pct_correct_notdogs = (
+        (n_correct_notdogs / n_notdogs_img) * 100 if n_notdogs_img else 0
+    )
     pct_correct_breed = (n_match_breed / n_dogs_img) * 100 if n_dogs_img else 0
-    pct_correct_match = (n_label_match / n_images) * 100 if n_images else 0
+    pct_match = (n_match / n_images) * 100 if n_images else 0
 
     # Add data to the dictionary
     results_stats_dic["n_images"] = n_images
     results_stats_dic["n_dogs_img"] = n_dogs_img
     results_stats_dic["n_notdogs_img"] = n_notdogs_img
+    results_stats_dic["n_correct_dogs"] = n_correct_dogs
+    results_stats_dic["n_correct_notdogs"] = n_correct_notdogs
+    results_stats_dic["n_correct_breed"] = n_dogs_img
     results_stats_dic["pct_correct_dogs"] = pct_correct_dogs
     results_stats_dic["pct_correct_notdogs"] = pct_correct_notdogs
     results_stats_dic["pct_correct_breed"] = pct_correct_breed
-    results_stats_dic["pct_correct_match"] = pct_correct_match
+    results_stats_dic["pct_match"] = pct_match
 
     return results_stats_dic

@@ -4,7 +4,7 @@
 #
 # PROGRAMMER:   Suhair Shareef
 # DATE CREATED: May 31, 2023.
-# REVISED DATE: June 3, 2023.
+# REVISED DATE: June 5, 2023.
 # PURPOSE: Classifies pet images using a pretrained CNN model, compares these
 #          classifications to the true identity of the pets in the images, and
 #          summarizes how well the CNN performed on the image classification task.
@@ -21,6 +21,7 @@
 #   Example call:
 #    python check_images.py --dir pet_images/ --arch vgg --dogfile dognames.txt
 ##
+from os import system
 
 # Imports python modules
 from time import time
@@ -91,7 +92,7 @@ def main():
     #      print_results(results, results_stats, in_arg.arch, True, True)
     # Prints summary results, incorrect classifications of dogs (if requested)
     # and incorrectly classified breeds (if requested)
-    print_results(results, results_stats, None, True, True)
+    print_results(results, results_stats, in_arg.arch, True, True)
 
     end_time = time()
 

@@ -1,9 +1,13 @@
 import ast
-from PIL import Image
-import torchvision.transforms as transforms
-from torch.autograd import Variable
+
 import torchvision.models as models
+import torchvision.transforms as transforms
+import warnings
+from PIL import Image
 from torch import __version__
+from torch.autograd import Variable
+
+warnings.filterwarnings("ignore", category=UserWarning)
 
 resnet18 = models.resnet18(pretrained=True)
 alexnet = models.alexnet(pretrained=True)
