@@ -30,14 +30,6 @@
 #           at indices 3 & 4 to 1 when the label is of-a-dog and to 0 when the
 #           label isn't a dog.
 #
-##
-# TODO 4: Define adjust_results4_isadog function below, specifically replace the None
-#       below by the function definition of the adjust_results4_isadog function.
-#       Notice that this function doesn't return anything because the
-#       results_dic dictionary that is passed into the function is a mutable
-#       data type so no return is needed.
-#
-from pprint import pprint
 
 
 def adjust_results4_isadog(results_dic, dogfile):

@@ -58,6 +58,14 @@ def get_pet_labels(image_dir):
 
 
 def get_label(raw_label: str):
+    """
+    Cleans the label name from File_Name_01.jpg format to file name format
+
+     raw_label - the original label
+
+    Returns:
+      pet_name - string with the cleaned format
+    """
     word_list_pet_image = raw_label.lower().split("_")
 
     pet_name = ""
@@ -66,5 +74,4 @@ def get_label(raw_label: str):
             pet_name += word + " "
 
     pet_name = pet_name.strip()
-
     return pet_name

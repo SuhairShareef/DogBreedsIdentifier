@@ -2,19 +2,23 @@ Questions regarding Uploaded Image Classification:
 
 1. Did the three model architectures classify the breed of dog in Dog_01.jpg to be the same breed? If not, report the differences in the classifications.
 
-Answer: 
-
+Answer: Yes, all models were able to correctly identify classify the breed of dog be the same breed
 
 2. Did each of the three model architectures classify the breed of dog in Dog_01.jpg to be the same breed of dog as that model architecture classified Dog_02.jpg? If not, report the differences in the classifications.
 
-Answer: 
+Answer: Yes, all models were able to correctly identify classify the breed of dog be the same breed even after flipping the image
 
 
 3. Did the three model architectures correctly classify Animal_Name_01.jpg and Object_Name_01.jpg to not be dogs? If not, report the misclassifications.
 
-Answer: 
+Answer: yes
 
 
 4. Based upon your answers for questions 1. - 3. above, select the model architecture that you feel did the best at classifying the four uploaded images. Describe why you selected that model architecture as the best on uploaded image classification.
 
-Answer:
+Answer: All the models demonstrated high accuracy in identifying dogs, with both VGG and AlexNet achieving a perfect classification rate for dogs and non-dogs.
+However, considering the execution time, VGG took approximately 12 seconds to process just 40 images. If speed is a crucial factor, especially for a system like an API that requires fast performance with decent accuracy, AlexNet would be a suitable choice. Nevertheless, if the system prioritizes higher accuracy, VGG would be the preferable option.
+
+VGG gave 93.333% breed classification accuracy
+ResNet gave 90.0% breed classification accuracy
+AlexNet gave 80.0% breed classification accuracy

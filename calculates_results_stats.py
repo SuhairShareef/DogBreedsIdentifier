@@ -4,7 +4,7 @@
 #
 # PROGRAMMER:   Suhair Shareef
 # DATE CREATED: June 3, 2023.
-# REVISED DATE: June 5, 2023.
+# REVISED DATE: June 6, 2023.
 # PURPOSE: Create a function calculates_results_stats that calculates the
 #          statistics of the results of the program run using the classifier's model
 #          architecture to classify the images. This function will use the
@@ -36,11 +36,6 @@
 #            pct_correct_dogs - percentage of correctly classified dogs
 #            pct_correct_breed - percentage of correctly classified dog breeds
 #            pct_correct_notdogs - percentage of correctly classified NON-dogs
-#
-##
-# TODO 5: Define calculates_results_stats function below, please be certain to replace None
-#       in the return statement with the results_stats_dic dictionary that you create
-#       with this function
 #
 def calculates_results_stats(results_dic):
     """
