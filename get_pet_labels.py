@@ -41,7 +41,7 @@ def get_pet_labels(image_dir):
     filename_list = listdir(image_dir)
 
     for file in filename_list:
-        if file.endswith(".jpg") or file.endswith(".png") or file.endswith(".jpeg"):
+        if file[0] != '.' and (file.endswith(".jpg") or file.endswith(".png") or file.endswith(".jpeg")):
             label = get_label(file)
             if file not in results_dic:
                 results_dic[file] = [label]
